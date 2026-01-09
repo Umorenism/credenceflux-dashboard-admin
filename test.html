@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>RideCart Admin — Login</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #64748b;
+      --primary: #1F2336;
+      --primary-hover: #2c324d;
+      --error: #dc2626;
+      --success: #16a34a;
+      --border: #e2e8f0;
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: var(--text);
+      background: var(--bg);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      box-shadow: 0 10px 30px rgba(2, 6, 23, 0.05);
+    }
+    h1 { font-size: 22px; margin: 8px 0 4px; }
+    p.muted { color: var(--muted); margin: 0 0 18px; font-size: 14px; }
+    .field { margin-bottom: 14px; }
+    label { display: block; font-size: 13px; margin-bottom: 6px; color: var(--text); }
+    input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: #f1f5f9;
+      outline: none;
+      font-size: 14px;
+      transition: border-color .2s, background .2s;
+    }
+    input:focus {
+      border-color: #60a5fa;
+      background: #eef6ff;
+    }
+    .actions {
+      display: flex; align-items: center; justify-content: space-between;
+      margin: 6px 0 12px;
+      font-size: 13px; color: var(--muted);
+    }
+    .btn {
+      width: 100%;
+      padding: 12px 14px;
+      background: var(--primary);
+      color: #fff; font-weight: 600; font-size: 14px;
+      border: 0; border-radius: 12px;
+      cursor: pointer;
+      transition: background .2s, opacity .2s;
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    }
+    .btn:hover { background: var(--primary-hover); }
+    .btn[disabled] { opacity: .7; cursor: not-allowed; }
+    .msg {
+      margin-top: 12px; font-size: 14px; padding: 10px 12px; border-radius: 10px;
+      border: 1px solid;
+      display: none;
+    }
+    .msg.error { color: var(--error); border-color: #fecaca; background: #fff1f2; display: block; }
+    .msg.success { color: var(--success); border-color: #bbf7d0; background: #f0fdf4; display: block; }
+    .row { display: flex; align-items: center; gap: 8px; }
+    .link { color: #2563eb; text-decoration: none; }
+    .link:hover { text-decoration: underline; }
+    small.hint { display:block; color: var(--muted); margin-top: 6px; }
+    .spinner {
+      inline-size: 16px; block-size: 16px; border-radius: 999px;
+      border: 2px solid rgba(255,255,255,.35);
+      border-top-color: #fff; animation: spin .9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .brand {
+      display:flex; align-items:center; gap:10px; margin-bottom: 10px;
+    }
+    .brand img { width:32px; height:32px; }
+  </style>
+</head>
+<body>
+  <main class="card" aria-labelledby="title">
+    <div class="brand">
+      <!-- Optional: swap src with your logo -->
+      <img src="https://dummyimage.com/64x64/1F2336/ffffff&text=R" alt="RideCart logo" />
+      <div>
+        <h1 id="title">Log in to RideCart Admin</h1>
+        <p class="muted">Enter your email and password to continue.</p>
+      </div>
+    </div>
+
+    <form id="login-form" novalidate>
+      <div class="field">
+        <label for="email">Email Address</label>
+        <input id="email" name="email" type="email" placeholder="you@example.com" autocomplete="email" required />
+        <small id="email-error" class="hint" style="color:#dc2626; display:none;">Please enter a valid email.</small>
+      </div>
+
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" placeholder="••••••••" autocomplete="current-password" required minlength="6" />
+        <small id="password-error" class="hint" style="color:#dc2626; display:none;">Password is required (min 6 chars).</small>
+      </div>
+
+      <div class="actions">
+        <label class="row" style="cursor:pointer;">
+          <input type="checkbox" id="remember" />
+          <span>Remember me</span>
+        </label>
+        <a class="link" href="/forget">Forgot password?</a>
+      </div>
+
+      <button id="login-btn" type="submit" class="btn">
+        <span>Login</span>
+      </button>
+
+      <div id="error" class="msg error" role="alert" aria-live="polite"></div>
+      <div id="success" class="msg success" role="status" aria-live="polite"></div>
+    </form>
+
+    <small class="hint">
+      Having trouble logging in? Make sure your browser allows requests to the RideCart server domain.
+    </small>
+  </main>
+
+  <script>
+
+
+// --- Config ---
+const LOGIN_URL = "https://ridecartserver.pinnaclebeacon.com/api/v1/admin/loginAdmin";
+// Where to send users after a successful login:
+const REDIRECT_AFTER_LOGIN = "/dashboard"; // change to your route
+
+// Prefer one key, but save both to be compatible with your existing codebase
+const TOKEN_KEYS = ["access_token", "authToken"];
+
+// --- Helpers ---
+const $ = (q) => document.querySelector(q);
+const show = (el, text = "") => {
+  el.style.display = "block";
+  if (text) el.textContent = text;
+};
+const hide = (el) => (el.style.display = "none");
+
+function setLoading(loading) {
+  const btn = $("#login-btn");
+  if (loading) {
+    btn.setAttribute("disabled", "true");
+    btn.innerHTML = `<span class="spinner" aria-hidden="true"></span><span> Authenticating...</span>`;
+  } else {
+    btn.removeAttribute("disabled");
+    btn.innerHTML = `<span>Login</span>`;
+  }
+}
+
+function saveToken(token) {
+  if (!token) return;
+  TOKEN_KEYS.forEach((k) => localStorage.setItem(k, token));
+}
+
+function extractTokenFromResponse(data) {
+  // Try common shapes without assuming exact backend schema
+  // e.g., { token }, { access_token }, { data: { token } }, etc.
+  return (
+    data?.token ||
+    data?.access_token ||
+    data?.data?.token ||
+    data?.data?.access_token ||
+    null
+  );
+}
+
+function extractUserFromResponse(data) {
+  return data?.user || data?.data?.user || null;
+}
+
+// --- Validation ---
+function validEmail(v) {
+  // Very simple email check
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(v).toLowerCase());
+}
+
+// --- Main Submit Handler ---
+$("#login-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+
+  hide($("#error"));
+  hide($("#success"));
+  $("#email-error").style.display = "none";
+  $("#password-error").style.display = "none";
+
+  const email = $("#email").value.trim();
+  const password = $("#password").value;
+
+  let hasError = false;
+  if (!validEmail(email)) {
+    $("#email-error").style.display = "block";
+    hasError = true;
+  }
+  if (!password || password.length < 6) {
+    $("#password-error").style.display = "block";
+    hasError = true;
+  }
+  if (hasError) return;
+
+  const payload = { email, password };
+
+  try {
+    setLoading(true);
+
+    const res = await fetch(LOGIN_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // If your backend needs cookies, add: credentials: "include",
+      body: JSON.stringify(payload),
+    });
+
+    // Network or CORS hint
+    if (!res.ok) {
+      let detail = "";
+      try {
+        const errJson = await res.json();
+        detail =
+          errJson?.message ||
+          errJson?.error ||
+          JSON.stringify(errJson);
+      } catch {
+        detail = res.statusText || "Unknown error";
+      }
+      show($("#error"), `Login failed (${res.status}). ${detail}`);
+      return;
+    }
+
+    const data = await res.json();
+
+    const token = extractTokenFromResponse(data);
+    if (!token) {
+      show($("#error"), "Login succeeded but token was not returned.");
+      return;
+    }
+
+    saveToken(token);
+
+    // Optionally persist email for "remember me"
+    if ($("#remember").checked) {
+      localStorage.setItem("remember_email", email);
+    } else {
+      localStorage.removeItem("remember_email");
+    }
+
+    const user = extractUserFromResponse(data);
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+
+    show($("#success"), "Login successful! Redirecting…");
+    // Small pause so user sees the success
+    setTimeout(() => {
+      window.location.assign(REDIRECT_AFTER_LOGIN);
+    }, 800);
+  } catch (err) {
+    console.error("Login error:", err);
+    // CORS and network guidance
+    const hint =
+      err?.message?.includes("Failed to fetch")
+        ? "Network/CORS error. Ensure the server allows requests from this origin."
+        : err?.message || "Unexpected error.";
+    show($("#error"), hint);
+  } finally {
+    setLoading(false);
+  }
+});
+
+// --- Prefill remembered email (optional) ---
+(function bootstrap() {
+  const remembered = localStorage.getItem("remember_email");
+  if (remembered) $("#email").value = remembered;
+})();
+
+
+
+  </script>
+</body>
+</html>
