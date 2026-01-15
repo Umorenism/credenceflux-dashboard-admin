@@ -5,7 +5,7 @@ import { useLocation, Outlet } from "react-router-dom";
 import Sidebar from "../Dashboard/SideBar";
 import Header from "./Header";
 
-export default function Dashboard() {
+export default function DashboardLayout() {
   const location = useLocation();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 

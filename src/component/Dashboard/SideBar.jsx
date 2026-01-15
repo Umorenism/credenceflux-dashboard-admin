@@ -1,113 +1,4 @@
 
-// import { NavLink } from "react-router-dom";
-// import { useState, useEffect } from "react";
-// import { useAuth } from "../../context/AuthContext";
-// import { MdDashboard } from "react-icons/md";
-// import { CiLogout } from "react-icons/ci";
-// import { FaCircleUser } from "react-icons/fa6";
-// import defaultAvatar from "../../assets/profile.svg"; // default avatar image
-
-// export default function Sidebar() {
-//   const { logout } = useAuth();
-
-//   const [admin, setAdmin] = useState({
-//     name: "",
-//     email: "",
-//     profilePic: "",
-//   });
-
-//   // Load admin info from localStorage
-//   useEffect(() => {
-//     const storedAdmin = JSON.parse(localStorage.getItem("admin"));
-//     if (storedAdmin) setAdmin(storedAdmin);
-//   }, []);
-
-//   const navLinkClasses = ({ isActive }) =>
-//     `flex items-center gap-3 px-4 py-3 rounded-[10px] transition-all text-sm font-medium ${
-//       isActive
-//         ? "bg-orange-100 text-orange-600 font-semibold"
-//         : "text-gray-700 hover:bg-orange-50 hover:text-orange-600"
-//     }`;
-
-//   return (
-//     <div className="w-[297px] h-screen fixed top-0 left-0 bg-white p-8 flex flex-col justify-between shadow-lg border-r border-gray-200 z-50">
-//       <div>
-//         <div className="w-full mb-5">
-//           <h1 className="text-orange-500 font-[900] text-[30px]">
-//             GIVE A MEAL
-//           </h1>
-//         </div>
-
-//         <nav className="flex flex-col gap-3">
-//           <NavLink to="/dashboard" className={navLinkClasses}>
-//             <MdDashboard size={20} /> Dashboard
-//           </NavLink>
-
-//           <NavLink to="/dashboard/campaigns" className={navLinkClasses}>
-//             <span className="ml-1">Campaigns</span>
-//           </NavLink>
-
-//           <NavLink to="/dashboard/create-campaign" className={navLinkClasses}>
-//             <span className="ml-1">Create Campaign</span>
-//           </NavLink>
-
-//           <NavLink to="/dashboard/create-blog" className={navLinkClasses}>
-//             <span className="ml-1">Create Blog</span>
-//           </NavLink>
-
-//           <NavLink to="/dashboard/analytics" className={navLinkClasses}>
-//             <span className="ml-1">Analytics</span>
-//           </NavLink>
-
-//           <NavLink to="/dashboard/donations" className={navLinkClasses}>
-//             <span className="ml-1">Total Donations</span>
-//           </NavLink>
-//           <NavLink to="/dashboard/settings" className={navLinkClasses}>
-//             <span className="ml-1">Admin permission</span>
-//           </NavLink>
-//           <NavLink to="/dashboard/notifications" className={navLinkClasses}>
-//             <span className="ml-1">Notifications</span>
-//           </NavLink>
-//         </nav>
-//       </div>
-
-//       <div className="pt-4 mb-10 flex">
-//         <div className="flex flex-col items-start gap-4">
-//           {/* Profile Image */}
-//           <div className="h-14 w-14 rounded-full overflow-hidden border border-gray-300 flex items-center justify-center">
-//   {admin.profilePic ? (
-//     <img
-//       src={admin.profilePic}
-//       alt="profile"
-//       className="h-full w-full object-cover rounded-full"
-//     />
-//   ) : (
-//     <FaCircleUser className="text-gray-500 text-3xl" />
-//   )}
-// </div>
-
-         
-//           {/* Admin Name and Email */}
-//           <div className="flex-1">
-//             <h1 className="text-sm font-semibold text-gray-800">
-//               {admin.name }
-//             </h1>
-//             <div className="flex items-center justify-between text-xs text-gray-500">
-//               <p>{admin.email}</p>
-//               <button onClick={logout}>
-//                 <CiLogout
-//                   className="text-red-600 hover:text-red-800 cursor-pointer"
-//                   size={20}
-//                 />
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 
 
 
@@ -118,7 +9,7 @@ import {
   MdDashboard,
   MdPeople,
   MdAccountBalanceWallet,
-  MdArrowDownward,
+  
   MdArrowUpward,
   MdSettings,
 } from "react-icons/md";
@@ -156,23 +47,23 @@ export default function Sidebar() {
 
           <NavLink to="/dashboard/details" className={navLinkClasses}>
             <MdPeople size={22} />
-            Users
+            Users Management
           </NavLink>
 
-          <NavLink to="/dashboard/deposite" className={navLinkClasses}>
+          {/* <NavLink to="/dashboard/deposite" className={navLinkClasses}>
             <MdArrowDownward size={22} className="text-green-600" />
             Deposits
-          </NavLink>
+          </NavLink> */}
 
           <NavLink to="/dashboard/withdrawals" className={navLinkClasses}>
             <MdArrowUpward size={22} className="text-red-600" />
-            Withdrawals
+            Admin Withdrawals
           </NavLink>
 
-          <NavLink to="/dashboard/wallet" className={navLinkClasses}>
+          {/* <NavLink to="/dashboard/wallet" className={navLinkClasses}>
             <MdAccountBalanceWallet size={22} />
             Platform Wallets
-          </NavLink>
+          </NavLink> */}
           <NavLink to="/dashboard/investment" className={navLinkClasses}>
             <MdAccountBalanceWallet size={22} />
             Platform investment
@@ -180,7 +71,7 @@ export default function Sidebar() {
 
           <NavLink to="/dashboard/settings" className={navLinkClasses}>
             <MdSettings size={22} />
-            Settings
+            Admin Management
           </NavLink>
         </nav>
       </div>
@@ -189,19 +80,21 @@ export default function Sidebar() {
       <div className="p-8 pt-4 border-t border-gray-200">
         <div className="flex items-center gap-4">
           {/* Avatar */}
-          <div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
-            {user?.name ? user.name.charAt(0).toUpperCase() : <FaCircleUser size={28} />}
-          </div>
+          {/* Avatar */}
+<div className="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold text-lg shadow-md">
+  {user?.username ? user.username.charAt(0).toUpperCase() : <FaCircleUser size={28} />}
+</div>
 
-          {/* Admin Info */}
-          <div className="flex-1 min-w-0">
-            <h3 className="text-sm font-semibold text-gray-800 truncate">
-              {user?.name}
-            </h3>
-            <p className="text-xs text-gray-500 truncate">
-              {user?.email}
-            </p>
-          </div>
+{/* Admin Info */}
+<div className="flex-1 min-w-0">
+  <h3 className="text-sm font-semibold text-gray-800 truncate">
+    {user?.username}
+  </h3>
+  <p className="text-xs text-gray-500 truncate">
+    {user?.email}
+  </p>
+</div>
+
 
           {/* Logout Button */}
           <button

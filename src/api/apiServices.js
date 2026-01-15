@@ -1,7 +1,7 @@
 // apiServices.js
 import axios from "axios";
 
-const base_url = "https://credenceflux.com";
+const base_url = "https://cryptoinvestment-y1aa.onrender.com";
 
 export const apiClient = axios.create({
   baseURL: base_url,
