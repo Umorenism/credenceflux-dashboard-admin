@@ -11,10 +11,11 @@ import { loginAdmin } from "../../api/authApi";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import toast, { Toaster } from "react-hot-toast";
 import loginBg from "../../assets/flux.svg";
+import { useAuth } from "../../context/AuthContext";
 
 export default function AdminLogin() {
   const navigate = useNavigate();
-
+const { setUser } = useAuth(); // make sure you export setUser in context
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [twoFactorCode, setTwoFactorCode] = useState("");
@@ -39,6 +40,7 @@ export default function AdminLogin() {
       const { token, refreshToken, admin } = res.data.data;
 
       // ✅ Store tokens properly
+      setUser(admin); 
       localStorage.setItem("access_token", token);
       localStorage.setItem("refresh_token", refreshToken);
       localStorage.setItem("user", JSON.stringify(admin));
