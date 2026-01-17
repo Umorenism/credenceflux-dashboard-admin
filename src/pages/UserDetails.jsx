@@ -53,7 +53,7 @@ export default function AdminUsersManagement() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-gray-900">
+        <h1 className="text-2xl mt-5 font-bold text-gray-900">
           User Management
         </h1>
         <p className="text-gray-500">

@@ -44,7 +44,7 @@ export default function AdminWallets() {
   return (
     <div className="mt-10">
       <Toaster position="top-right w-full" />
-      <h2 className="text-2xl font-semibold text-gray-800 mb-6">Platform Deposit Wallets</h2>
+      <h2 className="text-2xl mt-5 font-semibold text-gray-800 mb-6">Platform Deposit Wallets</h2>
 
       {/* Create New (Superadmin only) */}
       <motion.div

@@ -58,7 +58,7 @@ export default function AdminManagement() {
 
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-black">Manage Admin Accounts</h1>
+        <h1 className="text-2xl mt-5 font-bold text-black">Manage Admin Accounts</h1>
         <p className="text-gray-500">View and create administrator accounts</p>
       </div>
 

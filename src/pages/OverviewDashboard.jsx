@@ -90,10 +90,10 @@ if (stats.error) {
 // rest of your normal dashboard...
 
   const chartData = [
-    { name: "Users", value: stats.totalUsers },
-    { name: "Active Users", value: stats.activeUsers },
     { name: "Deposits", value: stats.totalDeposits },
     { name: "Withdrawals", value: stats.totalWithdrawals },
+    { name: "Users", value: stats.totalUsers },
+    { name: "Active Users", value: stats.activeUsers },
     { name: "Investments", value: stats.activeInvestments },
   ];
 
@@ -101,7 +101,7 @@ if (stats.error) {
     <div className="space-y-10 pb-10">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold text-gray-900">
+        <h1 className="text-3xl mt-5 font-bold text-gray-900">
           Admin Dashboard
         </h1>
         <p className="text-gray-500 mt-1">
