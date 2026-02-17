@@ -12,6 +12,7 @@ import {
   
   MdArrowUpward,
   MdSettings,
+  MdArrowDownward,
 } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
 import { FaCircleUser } from "react-icons/fa6";
@@ -50,20 +51,20 @@ export default function Sidebar() {
             Users Management
           </NavLink>
 
-          {/* <NavLink to="/dashboard/deposite" className={navLinkClasses}>
+           <NavLink to="/dashboard/deposite" className={navLinkClasses}>
             <MdArrowDownward size={22} className="text-green-600" />
-            Deposits
-          </NavLink> */}
+            Admin Deposits
+          </NavLink> 
 
           <NavLink to="/dashboard/withdrawals" className={navLinkClasses}>
             <MdArrowUpward size={22} className="text-red-600" />
             Admin Withdrawals
           </NavLink>
 
-          {/* <NavLink to="/dashboard/wallet" className={navLinkClasses}>
+           <NavLink to="/dashboard/wallet" className={navLinkClasses}>
             <MdAccountBalanceWallet size={22} />
-            Platform Wallets
-          </NavLink> */}
+            Admin Wallets
+          </NavLink> 
           <NavLink to="/dashboard/investment" className={navLinkClasses}>
             <MdAccountBalanceWallet size={22} />
             Platform investment

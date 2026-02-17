@@ -73,48 +73,48 @@ export default function AdminInvestments() {
 
           <tbody className="bg-white divide-y divide-gray-200">
             {investments.map((inv, i) => (
-              <motion.tr
-                key={inv.id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: i * 0.05 }}
-              >
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {inv.user?.username || inv.userId}
-                  <div className="text-xs text-gray-500">
-                    {inv.user?.email}
-                  </div>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                  {inv.cryptocurrency}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {inv.initialCryptoAmount}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-green-600 font-medium">
-                  {inv.currentCryptoAmount}
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                  {inv.dailyROI}%
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap">
-                  <span
-                    className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                      inv.status === "active"
-                        ? "bg-green-100 text-green-800"
-                        : inv.status === "completed"
-                        ? "bg-blue-100 text-blue-800"
-                        : "bg-gray-100 text-gray-800"
-                    }`}
-                  >
-                    {inv.status}
-                  </span>
-                </td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                  {new Date(inv.startDate).toLocaleDateString()}
-                </td>
-              </motion.tr>
-            ))}
+  <motion.tr
+    key={inv._id}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1 }}
+    transition={{ delay: i * 0.05 }}
+  >
+
+    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+      {inv.user?.username || "N/A"}
+
+      <div className="text-xs text-gray-800">
+        {inv.user?.email || ""}
+      </div>
+    </td>
+
+    <td className="px-6 py-4 text-gray-800">
+      {inv.cryptocurrency}
+    </td>
+
+    <td className="px-6 py-4 text-gray-800">
+      {inv.initialCryptoAmount}
+    </td>
+
+    <td className="px-6 py-4 text-green-800 font-medium">
+      {inv.currentCryptoAmount}
+    </td>
+
+    <td className="px-6 py-4 text-gray-800">
+      {inv.dailyROI}%
+    </td>
+
+    <td className="px-6 text-gray-800 py-4">
+      {inv.status}
+    </td>
+
+    <td className="px-6 py-4 text-gray-800">
+      {new Date(inv.startDate).toLocaleDateString()}
+    </td>
+
+  </motion.tr>
+))}
+
           </tbody>
         </table>
       </div>

@@ -70,7 +70,7 @@ import ProtectedRoute from "./component/Dashboard/ProtectedRoute";
 
 import AdminLogin from "./component/Auth/AdminLogin";
 
-import AdminDeposits from "./pages/Deposite";
+
 import AdminWallets from "./pages/Adminwallet";
 import AdminWithdrawals from "./pages/AdminWithdrawals";
 import AdminInvestments from "./pages/AdminInvestments";
@@ -78,6 +78,7 @@ import DashboardLayout from "./component/Dashboard/Dashboard";
 import OverviewDashboard from "./pages/OverviewDashboard";
 import AdminUsersManagement from "./pages/UserDetails";
 import AdminManagement from "./pages/Settings";
+import AdminDeposits from "./pages/AdminDeposits";
 
 export default function App() {
   return (
