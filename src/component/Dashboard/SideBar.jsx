@@ -16,6 +16,7 @@ import {
 } from "react-icons/md";
 import { CiLogout } from "react-icons/ci";
 import { FaCircleUser } from "react-icons/fa6";
+import logo from "../../assets/fy.png"; // Adjust the path as needed
 
 export default function Sidebar() {
   const { user, logout } = useAuth();
@@ -32,12 +33,16 @@ export default function Sidebar() {
       {/* Top Section */}
       <div className="p-8">
         {/* Logo / Brand */}
-        <div className="mb-10">
-          <h1 className="text-3xl font-black text-orange-600 tracking-tight">
-            CREDENCEFLUX
-          </h1>
-          <p className="text-xs text-gray-500 mt-1 uppercase tracking-wider">Admin Panel</p>
-        </div>
+        <div className="mb-10 flex flex-col items-start">
+  <img 
+    src={logo}                  // or /images/credenceflux-logo.svg, etc.
+    alt="CredenceFlux"
+    className="h-10 w-full object-cover"
+  />
+  <p className="text-xs text-gray-500 mt-2 uppercase tracking-wider">
+    Admin Panel
+  </p>
+</div>
 
         {/* Navigation */}
         <nav className="space-y-2">
